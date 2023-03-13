@@ -1,0 +1,30 @@
+class PerbedaanAttribute:
+    def __init__(self):
+        self.public_attribute = "Public Attribute"
+        self._protected_attribute = "Protected Attribute"
+        self.__private_attribute = "Private Attribute"
+        
+    def get_private_attribute(self):
+        return self.__private_attribute
+
+
+obj = PerbedaanAttribute()
+
+#Mengakses/mengetes Public Attibute
+print(obj.public_attribute)
+
+#Mengakses/mengetes Protected Attibute 
+#Attribute hanya dapat diakses oleh turunan dari class itu saja
+print(obj._protected_attribute)
+
+#Mengakses/mengetes Private Attibute
+#attribute hanya dapat diakses di class itu sendiri, jika mencoba dari luar class maka akan terjadi error, seperti contoh 
+#percobaan code dibawah
+print(obj.get_private_attribute())
+
+#Mencoba Mengakses privat attibute secara langsung
+try:
+    print(obj.__private_attribute)
+except AttributeError:
+    print("Tidak bisa Mengakses Privat Attribute Secara Langsung")
+
