@@ -1,12 +1,12 @@
 class BankAccount:
-    costumer_list = []
-    
+    customers = []
+
     def __init__(self, id_customer, name, balance):
         self.id_customer = id_customer
         self.name = name
         self.balance = balance
         self.customers.append(self)
-    
+
     @classmethod
     def lihat_menu(cls):
         print("Menu:")
@@ -14,28 +14,28 @@ class BankAccount:
         print("2. Tarik Tunai")
         print("3. Transfer Saldo")
         print("4. Keluar")
-    
+
     @classmethod
     def lihat_saldo(cls, id_customer):
         for customer in cls.customers:
             if customer.id_customer == id_customer:
-                print(f"{customer.name}'s bank balance is {customer.balance}")
+                print(f"{customer.name} memiliki saldo sebesar= {customer.balance}")
                 return
-        print("Customer not found")
-    
+        print("Pengguna tidak ditemukan")
+
     @classmethod
     def tarik_tunai(cls, id_customer, amount):
         for customer in cls.customers:
             if customer.id_customer == id_customer:
                 if customer.balance >= amount:
                     customer.balance -= amount
-                    print(f"{amount} withdrawn from {customer.name}'s account")
-                    print(f"New balance: {customer.balance}")
+                    print(f"Saldo Berhasil Ditarik!")
+                    print(f"Sisa Saldo: {customer.balance}")
                 else:
-                    print("Insufficient funds")
+                    print("Nominal saldo yang Anda punya tidak cukup!")
                 return
-        print("Customer not found")
-    
+        print("Pengguna tidak ditemukan")
+
     @classmethod
     def transfer(cls, id_sender, id_receiver, amount):
         sender = None
@@ -46,27 +46,52 @@ class BankAccount:
             elif customer.id_customer == id_receiver:
                 receiver = customer
         if sender is None:
-            print("Sender not found")
+            print("Pengirim tidak ditemukan")
             return
         if receiver is None:
-            print("Receiver not found")
+            print("Penerima tidak ditemukan")
             return
         if sender.balance >= amount:
             sender.balance -= amount
             receiver.balance += amount
-            print(f"{amount} transferred from {sender.name} to {receiver.name}")
-            print(f"{sender.name}'s new balance: {sender.balance}")
-            print(f"{receiver.name}'s new balance: {receiver.balance}")
+            print(f"{amount} Berhasil ditransfer dari{sender.name} ke Rekening {receiver.name}")
+            print(f"{sender.name}'s Sisa Saldo: {sender.balance}")
         else:
-            print("Insufficient funds")
-    
+            print("Saldo Tidak Mencukupi")
+
     @classmethod
     def exit_menu(cls):
-        
-    Akun1 = AkunBank(1234, isi_nama_kalian, 5 000 000 000)
-    Akun2 = AkunBank(2345, "Ukraina", 6 666 666 666)
-    Akun3 = AkunBank(3456, "Elon Musk", 9 999 999 999)   
-    
+        print("Keluar dari Menu...")
+
+
+#List Nama Users/Akun/Pengguna
+customer1 = BankAccount(1234, 'Stefen Tjung', 5000000000)
+customer2 = BankAccount(2345, 'ukraina', 6666666666)
+customer3 = BankAccount(3456, 'Elon musk', 9999999999)
+
+#Supaya User bisa input dan mengakses menunya
+while True:
+    BankAccount.lihat_menu()
+    choice = input("Pilih Menu 1-4 : ")
+
+    if choice == "1":
+        id_customer = int(input("Masukan ID/No Pelanggan Anda : "))
+        BankAccount.lihat_saldo(id_customer)
+
+    elif choice == "2":
+        id_customer = int(input("Masukan ID/No Pelanggan Anda :  "))
+        amount = int(input("Masukan Jumlah Uang yang ingin ditarik : "))
+        BankAccount.tarik_tunai(id_customer, amount)
+
+    elif choice == "3":
+        id_sender = int(input("Masukan ID/No Pelanggan Anda :  "))
+        id_receiver = int(input("Masukan ID/No Pelanggan tempat uang ingin dikirim "))
+        amount = int(input("Masukan Jumlah uang untuk ditransfer : "))
+        BankAccount.transfer(id_sender, id_receiver, amount)
+
+    elif choice == "4":
+        BankAccount.exit_menu()
+        break
     
     
 
